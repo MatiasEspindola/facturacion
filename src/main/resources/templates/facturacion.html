@@ -1,0 +1,1173 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="">
+	<meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+	<meta name="generator" content="Hugo 0.104.2">
+	<title>RyR Computación - Facturación</title>
+
+	<link rel="canonical" href="https://getbootstrap.com/docs/5.2/examples/dashboard/">
+
+
+	<link rel="stylesheet" th:href="@{../css/jquery-ui.min.css}">
+
+
+
+	<link href="../assets/dist/css/bootstrap.min.css" rel="stylesheet">
+
+	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap5.min.css">
+
+	<style>
+		.ui-autocomplete {
+			max-width: 100%;
+			max-height: 200px;
+			overflow-y: auto;
+			/* prevent horizontal scrollbar */
+			overflow-x: hidden;
+			/* add padding to account for vertical scrollbar */
+			padding-right: 20px;
+		}
+
+		input {
+			text-align: center;
+		}
+
+		.bd-placeholder-img {
+			font-size: 1.125rem;
+			text-anchor: middle;
+			-webkit-user-select: none;
+			-moz-user-select: none;
+			user-select: none;
+		}
+
+		@media (min-width: 768px) {
+			.bd-placeholder-img-lg {
+				font-size: 3.5rem;
+			}
+		}
+
+		.b-example-divider {
+			height: 3rem;
+			background-color: rgba(0, 0, 0, .1);
+			border: solid rgba(0, 0, 0, .15);
+			border-width: 1px 0;
+			box-shadow: inset 0 .5em 1.5em rgba(0, 0, 0, .1), inset 0 .125em .5em rgba(0, 0, 0, .15);
+		}
+
+		.b-example-vr {
+			flex-shrink: 0;
+			width: 1.5rem;
+			height: 100vh;
+		}
+
+		.bi {
+			vertical-align: -.125em;
+			fill: currentColor;
+		}
+
+		.nav-scroller {
+			position: relative;
+			z-index: 2;
+			height: 2.75rem;
+			overflow-y: hidden;
+		}
+
+		.nav-scroller .nav {
+			display: flex;
+			flex-wrap: nowrap;
+			padding-bottom: 1rem;
+			margin-top: -1px;
+			overflow-x: auto;
+			text-align: center;
+			white-space: nowrap;
+			-webkit-overflow-scrolling: touch;
+		}
+	</style>
+
+
+	<!-- Custom styles for this template -->
+	<link th:href="@{../css/dashboard.css}" rel="stylesheet">
+</head>
+
+<body>
+
+	<header class="navbar navbar-danger sticky-top bg-danger flex-md-nowrap p-0 shadow">
+		<a class="navbar-brand col-md-3 col-lg-2 me-0 px-3 fs-6 text-white text-center" href="#">RyR Computación</a>
+
+
+		<div class="navbar-nav">
+			<div class="nav-item ">
+				<a class="nav-link px-3 text-white" href="#">Salir</a>
+			</div>
+		</div>
+	</header>
+
+	<div class="container-fluid">
+		<div class="row">
+			<nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
+				<div class="position-sticky pt-3 sidebar-sticky">
+					<div class="d-none">
+						<img th:src="@{../img/logo.png}" style="max-width: 100%;" />
+
+					</div>
+
+					<ul class="nav flex-column">
+						<li class="nav-item">
+							<a class="nav-link active" aria-current="page" th:href="@{/facturacion}">
+								<span data-feather="home" class="align-text-bottom"></span>
+								Facturación
+							</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link " aria-current="page" th:href="@{/clientes}">
+								<span data-feather="home" class="align-text-bottom"></span>
+								Clientes
+							</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link " aria-current="page" th:href="@{/entidades_financieras}">
+								<span data-feather="home" class="align-text-bottom"></span>
+								Entidades Financieras
+							</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" aria-current="page" th:href="@{/planes_pagos}">
+								<span data-feather="home" class="align-text-bottom"></span>
+								Planes Pagos
+							</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" aria-current="page" th:href="@{/tarjetas}">
+								<span data-feather="home" class="align-text-bottom"></span>
+								Tarjetas
+							</a>
+						</li>
+							<li class="nav-item">
+							<a class="nav-link " aria-current="page" th:href="@{/comprobantes}">
+								<span data-feather="home" class="align-text-bottom"></span>
+								Comprobantes
+							</a>
+						</li>
+
+
+					</ul>
+
+					<h6
+						class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted text-uppercase">
+
+					</h6>
+					<ul class="nav flex-column mb-2">
+						<li class="nav-item">
+							<a class="nav-link" href="#">
+
+
+							</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="#">
+
+
+							</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="#">
+
+
+							</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="#">
+
+
+							</a>
+						</li>
+					</ul>
+				</div>
+			</nav>
+
+			<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+				<div
+					class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+
+
+
+					<h1 class="h4">Facturación</h1>
+					<div class="btn-toolbar mb-2 mb-md-0">
+						<div class="btn-group me-2">
+							<a class="btn btn-danger" th:href="@{/cancelar}">Vaciar</a>
+						</div>
+
+					</div>
+				</div>
+
+
+
+
+
+				<br>
+				<div class="row">
+					<form class="" th:action="@{/formBuscarCliente}" method="post" id="form_cliente">
+						<div class="text-center">
+							<h5>Para realizar la búsqueda del cliente ingrese <b style="color:skyblue">razón social</b>
+								o <b style="color:skyblue">código</b></h5>
+						</div>
+						<div class="input-group mb-3">
+
+							<input type="text" class="form-control "
+								th:placeholder="${cliente == null ? 'Cargar Cliente':cliente.cli_codigo + ', ' + cliente.razon_social}"
+								aria-label="Buscar Cliente" aria-describedby="button-addon2" id="buscar_cliente"
+								name="buscar_cliente" required>
+							<input type="hidden" id="ingresar_cliente" name="ingresar_cliente">
+							<button type="button" class="btn btn-primary" data-bs-toggle="modal"
+								data-bs-target="#filtrar_cliente">Filtrar</button>
+
+
+							<!-- Modal -->
+							<div class="modal fade" id="filtrar_cliente" tabindex="-1"
+								aria-labelledby="exampleModalLabel" aria-hidden="true">
+								<div class="modal-dialog modal-lg">
+									<div class="modal-content">
+										<div class="modal-header">
+											<h1 class="modal-title fs-5" id="exampleModalLabel">
+												Filtrar</h1>
+											<button type="button" class="btn-close" data-bs-dismiss="modal"
+												aria-label="Close"></button>
+										</div>
+										<div class="modal-body">
+
+											<div class="table-responsive">
+												<table class="table table-striped align-middle" id="clientes">
+													<thead>
+														<tr>
+															<th scope="col">Cod. Cli</th>
+															<th scope="col">Razón Social</th>
+															<th scope="col">Tip. Doc / Nro</th>
+															<th scope="col">Tip. Cli</th>
+															<th scope="col">Localidad</th>
+															<th scope="col">Seleccionar</th>
+														</tr>
+													</thead>
+													<tbody>
+														<tr th:each="cliente : ${clientes}">
+
+															<td th:text="${cliente.cli_codigo}">
+																@mdo</td>
+															<td th:text="${cliente.razon_social}">
+																@mdo</td>
+															<td
+																th:text="${cliente.fkidtipodocumento.tipo_documento + ' / ' + cliente.nro_documento}">
+																@mdo</td>
+															<td th:text="${cliente.fkidtipocliente.tipo_cliente}">@mdo
+															</td>
+															<td th:text="${cliente.localidad}">@mdo</td>
+															<td>
+																<a
+																	th:href="@{'/formBuscarCliente?ingresar_cliente='+${cliente.cli_codigo}}">Seleccionar</a>
+															</td>
+														</tr>
+													</tbody>
+												</table>
+											</div>
+
+										</div>
+										<div class="modal-footer">
+											<button type="button" class="btn btn-danger"
+												data-bs-dismiss="modal">Cerrar</button>
+
+										</div>
+									</div>
+								</div>
+							</div>
+
+						</div>
+					</form>
+				</div>
+
+				<br>
+				<div class="row">
+
+					<div class="alert alert-success text-center" role="alert" th:if="${encontrado != null}"
+						th:text="${encontrado}"></div>
+
+					<div class="alert alert-danger text-center" role="alert" th:if="${no_encontrado != null}"
+						th:text="${no_encontrado}"></div>
+
+				</div>
+
+				<div th:if="${cliente != null}">
+					<ul class="list-group list-group-horizontal ">
+						<li class="list-group-item flex-fill"><b>Razón Social: </b><span id="razon_social"
+								th:text="${cliente.razon_social}"></span></li>
+						<li class="list-group-item flex-fill"><b>Tipo Documento: </b><span
+								th:text="${cliente.fkidtipodocumento.tipo_documento}"></span></li>
+						<li class="list-group-item flex-fill"><b>Nro Documento: </b><span
+								th:text="${cliente.nro_documento}"></span></li>
+					</ul>
+
+					<ul class="list-group list-group-horizontal">
+						<li class="list-group-item flex-fill"><b>Tipo Cliente: </b><span
+								th:text="${cliente.fkidtipocliente.tipo_cliente}"></span></li>
+						<li class="list-group-item flex-fill"><b>Localidad: </b><span
+								th:text="${cliente.localidad}"></span>
+						</li>
+						<li class="list-group-item flex-fill"><b>Código Cliente: </b><span
+								th:text="${cliente.cli_codigo}" id="codigo_cli"></span></li>
+					</ul>
+				</div>
+
+				<br>
+				<div class="row" th:if="${cliente != null}">
+					<div class="text-center">
+						<h5>Para agregar productos al carrito de compra ingrese <b style="color:skyblue">código</b> o <b
+								style="color:skyblue">nombre</b></h5>
+					</div>
+					<div>
+						<input type="text" class="form-control" placeholder="Ingrese código o nombre del producto"
+							aria-label="Cargar Producto" aria-describedby="button-addon2" id="buscar_producto"
+							name="buscar_producto">
+						<input type="hidden" id="ingresar_producto" name="ingresar_producto">
+					</div>
+				</div>
+
+				<br>
+				<div class="row card shadow p-3 mb-5 rounded" th:if="${cliente != null}">
+					<form class="card-body" th:action="@{/detalles_factura}"  method="post">
+
+						<div class="table-responsive">
+							<div class="text-center">
+								<h5 class="text-primary"><b>Productos Cargados</b></h5>
+								<h6 class="text-dark"><b>Carrito de Compras</b></h6>
+							</div>
+							<table th:replace="plantilla-items :: itemsFactura"></table>
+						</div>
+						<div class="table-responsive">
+							<table id="cargarItemsProductos"
+								class="table table-sm table-striped table-hover text-center">
+								<thead>
+									<tr>
+										<th>Descripción:</th>
+										<th>P.U.:</th>
+										<th>Cant.:</th>
+										<th class="d-none">Subt. Neto:</th>
+										<th>Alic. IVA:</th>
+										<th>Subt. Neto:</th>
+										<th>Eliminar</th>
+									</tr>
+								</thead>
+								<tbody>
+								</tbody>
+							</table>
+
+
+						</div>
+						<div class="row">
+							<div class="col-6">
+
+							</div>
+							<div class="col-3">
+
+							</div>
+							<div class="col-3">
+								<ul class="list-group">
+									<li class="list-group-item d-flex justify-content-between align-items-center">
+										Subt.
+										<input class="form-control" readonly type="number"
+											id="subtotal" name="subtotal" style="background:white; border:none;"></input>
+											
+									</li>
+								</ul>
+							</div>
+						</div>
+					
+
+					
+						<br>
+						<div class="table-responsive">
+							<div class="text-center">
+								<h5 class="text-primary"><b>Medios de Pagos</b></h5>
+								<h6 class="text-dark"><b>Filtros</b></h6>
+							</div>
+						</div>
+
+						<div class="row">
+
+							<div class="col-4">
+								<select class="form-select" aria-label="Default select example" id="select_medio_pago"
+									onchange="cambiarMedioPago(this.value)">
+									<option value="0"> Medios de Pagos</option>
+									<option th:each="medio_pago : ${medios_pagos}" th:text="${medio_pago.descripcion}"
+										th:value="${medio_pago.id_medio_pago}">One</option>
+
+								</select>
+							</div>
+
+							<div class="col-8">
+
+								<input type="text" class="form-control" readonly id="mensaje"
+									value="Debe seleccionar un medio de pago">
+
+								<select class="form-select d-none" aria-label="Default select example" id="t_credito"
+									onchange="cargarPlanDePago(this.value)">
+									<option value="0"> Planes de Pagos</option>
+									<option th:each="plan_pago : ${planes_pagos}"
+										th:text="${plan_pago.descripcion + ',' + plan_pago.tarjeta.descripcion + ',' + plan_pago.tarjeta.entidad_financiera.descripcion}"
+										th:value="${plan_pago.id_plan_pago + ',' + plan_pago.descripcion + ',' + plan_pago.cuotas + ',' + plan_pago.interes + ',' + plan_pago.tarjeta.descripcion + ',' + plan_pago.tarjeta.entidad_financiera.descripcion}">
+										One</option>
+
+								</select>
+
+								<select class="form-select d-none" aria-label="Default select example" id="t_debito"
+									onchange="cargarTarjetaDebito(this.value)">
+									<option value="0"> Tarjetas Débito</option>
+									<option th:each="tarjeta : ${tarjetas_debito}"
+										th:text="${tarjeta.descripcion + ',' + tarjeta.entidad_financiera.descripcion}"
+										th:value="${tarjeta.id_tarjeta + ',' + tarjeta.descripcion + ',' + tarjeta.entidad_financiera.descripcion}">
+										One</option>
+
+								</select>
+
+							</div>
+
+						</div>
+
+
+
+						<br>
+						<div class="table-responsive">
+							<div class="text-center">
+								<h6 class="text-dark"><b>Medios Cargados</b></h6>
+							</div>
+							<table th:replace="plantilla-pagos :: itemsPagos"></table>
+						</div>
+						<div class="table-responsive">
+							<table id="cargarMediosPagos" class="table table-sm table-striped table-hover text-center">
+								<thead>
+									<tr>
+										<th>Medio de Pago:</th>
+										<th>Descripción:</th>
+										<th>Interés:</th>
+										<th>Importe:</th>
+										<th>Importe c/ Interés:</th>
+										<th>Eliminar</th>
+									</tr>
+								</thead>
+								<tbody>
+								</tbody>
+							</table>
+						</div>
+						<div class="row">
+							<div class="col-6">
+
+							</div>
+							<div class="col-3">
+
+							</div>
+							<div class="col-3">
+
+								<ul class="list-group">
+									<li class="list-group-item d-flex justify-content-between align-items-center">
+										Total.
+										<input class="form-control"  style="background:white; border:none;"  type="number" readonly
+											id="total" name="total"></input>
+										<input class="form-control d-none"  type="number" readonly
+											id="cliente" name="cliente" th:value="${cliente.cli_codigo}"></input>
+									
+									</li> 
+								</ul>
+							</div>
+						</div>
+
+						<br>
+
+						<div class="row">
+							<div class="text-center">
+								<button type="submit" class="btn btn-primary">Guardar</button>
+								<a class="btn btn-danger" th:href="@{/cancelar}">Cancelar</a>
+							</div>
+						</div>
+
+
+					</form>
+
+
+
+					<!-- Content here -->
+				</div>
+
+
+			</main>
+		</div>
+	</div>
+	
+	
+
+
+	<script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
+
+	<script src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js"
+		integrity="sha384-uO3SXW5IuS1ZpFPKugNNWqTZRRglnUJK6UAZ/gxOX80nxEkN9NcGZTftn6RzhGWE"
+		crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"
+		integrity="sha384-zNy6FEbO50N+Cg5wap8IKA4M/ZnLJgzc6w2NqACZaK0u0FXfOWRRJOnQtpZun8ha"
+		crossorigin="anonymous"></script>
+		
+		
+
+
+	<script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+
+	<script th:src="@{/js/jquery.min.js}"></script>
+
+	<script th:src="@{/js/jquery-ui.min.js}"></script>
+
+	<script th:src="@{/js/all.min.js}"></script>
+
+	<script type="text/javascript" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+
+	<script type="text/javascript" src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap5.min.js"> </script>
+	
+	
+
+	<script>
+
+
+
+		var medios_pagos = [];
+		var transferencias = [];
+		var cheques = [];
+		var efectivos = [];
+		var debitos = [];
+
+		var porcentajes = 0;
+		var pendiente = 0;
+		var importes = 0;
+
+
+		var sum_tax = {
+			"id": 5,
+			"baseImp": 0,
+			"importe": 0
+		}
+
+		var sum_tax_105 = {
+			"id": 4,
+			"baseImp": 0,
+			"importe": 0
+		}
+
+		var base = {
+			"subtotal": 0,
+			"sum_tax": sum_tax,
+			"sum_tax_105": sum_tax_105,
+			"discount": 0,
+			"total": 0
+		}
+
+		function Medio_Pago(id) {
+			this.id = id;
+		}
+
+		function cambio(valor) {
+			alert("hola");
+		}
+
+		function calcularCuotas(valor) {
+			var cuotas = document.getElementById("cuotas").value;
+
+			var cuota = valor / cuotas;
+
+			document.getElementById("valorcuotas").innerHTML = cuota.toFixed(2);
+
+			var importe_total = parseFloat(valor);
+
+			console.log(cuotas);
+		}
+
+		$(document).ready(function () {
+
+			$("#buscar_cliente").autocomplete({
+				source: function (request, response) {
+
+					$.ajax({
+						url: "/buscar_cliente/" + request.term,
+						datatype: "json",
+						data: {
+							term: request.term
+						},
+						success: function (data) {
+							response($.map(data, function (item) {
+								return {
+									value: item.cli_codigo,
+									label: item.cli_codigo + ', ' + item.razon_social
+								};
+							}));
+						},
+					});
+
+				},
+				select: function (event, ui) {
+					$("#buscar_cliente").val(ui.item.label);
+					//$("#buscar_dire").click();
+
+					$("#ingresar_cliente").val(ui.item.value);
+
+					$("#form_cliente").submit();
+
+					sessionStorage.clear();
+
+					return false;
+				}
+			});
+
+
+
+			$("#buscar_plan_pago").autocomplete({
+				source: function (request, response) {
+
+					$.ajax({
+						url: "/buscar_plan_pago/" + request.term,
+						datatype: "json",
+						data: {
+							term: request.term
+						},
+						success: function (data) {
+							response($.map(data, function (item) {
+								return {
+									value: item.id_plan_pago,
+									label: item.descripcion + ', ' + item.tarjeta.descripcion
+								};
+							}));
+						},
+					});
+
+				},
+				select: function (event, ui) {
+					$("#buscar_plan_pago").val(ui.item.label);
+					//$("#buscar_dire").click();
+
+					$("#ingresar_plan_pago").val(ui.item.value);
+
+					//$("#form_cliente").submit();
+
+					//sessionStorage.clear();
+
+					return false;
+				}
+			});
+
+		});
+
+		function seleccionarCliente() {
+			$("#form_cliente").submit();
+		}
+
+		productos = [];
+
+		function Producto(id, descripcion, precio, unidad, iva, sum_tax) {
+			this.id = id;
+			this.descripcion = descripcion;
+			this.precio = precio;
+			this.unidad = unidad;
+			this.iva = iva;
+			this.sum_tax = sum_tax;
+
+			var baseImp = precio * iva / 100;
+			var importe = precio;
+
+			if (iva < 21) {
+				sum_tax["baseImp"] += baseImp;
+				sum_tax["importe"] += importe;
+			} else {
+				sum_tax_105["baseImp"] += baseImp;
+				sum_tax_105["importe"] += importe;
+			}
+
+		}
+
+
+
+		$(document).ready(function () {
+
+
+			$("#buscar_producto").autocomplete({
+				source: function (request, response) {
+
+					$.ajax({
+						url: "/cargar_producto/" + request.term,
+						datatype: "json",
+						data: {
+							term: request.term
+						},
+						success: function (data) {
+							response($.map(data, function (item) {
+								return {
+									value: item.id_lista_producto,
+									label: item.fkidproductolista.pro_codigo + ', ' + item.fkidproductolista.descripcion,
+									precing: item.importe,
+									iva: item.fkidproductolista.iva,
+									unidad: item.cantidadminima
+								};
+							}));
+						},
+					});
+
+				},
+				select: function (event, ui) {
+
+					if (itemsHelper.hasProducto(ui.item.value)) {
+						itemsHelper.incrementaCantidad(ui.item.value, parseFloat(ui.item.precing), parseInt(ui.item.unidad), parseFloat(ui.item.iva));
+						return false;
+					}
+
+					var linea = $("#plantillaItemsFactura").html();
+
+					linea = linea.replace(/{ID}/g, ui.item.value);
+					linea = linea.replace(/{DESCRIPCION}/g, ui.item.label);
+					linea = linea.replace(/{UNIDAD}/g, ui.item.unidad);
+					linea = linea.replace(/{IVA}/g, parseFloat(ui.item.iva));
+					linea = linea.replace(/{PRECIO}/g, parseFloat(ui.item.precing));
+
+					var producto = new Producto(ui.item.value, ui.item.label, parseFloat(ui.item.precing), ui.item.unidad, parseFloat(ui.item.iva),
+						parseFloat(ui.item.precing));
+
+					productos.push(producto);
+
+					$("#cargarItemsProductos tbody").append(linea);
+					itemsHelper.calcularImporte(ui.item.value, parseFloat(ui.item.precing), parseInt(ui.item.unidad), parseFloat(ui.item.iva));
+					return false;
+				}
+			});
+
+			$("#detalles_factura").submit(function () {
+				$("#plantillaItemsFactura").remove();
+				return;
+			});
+
+		});
+
+		var itemsHelper = {
+			calcularImporte: function (id, precio, cantidad, iva) {
+				precio = document.getElementById("precio_" + id).value;
+				cantidad = document.getElementById("cantidad_" + id).value;
+
+
+
+
+				var total_importe = precio * cantidad;
+				$("#total_importe_" + id).html(parseFloat(total_importe));
+
+
+				//total_importe = total_importe * iva / 100 + total_importe;
+
+
+
+				this.calcularGranTotal();
+
+
+			},
+			hasProducto: function (id) {
+
+				var resultado = false;
+
+				$('input[name="item_id[]"]').each(function () {
+					if (parseInt(id) == parseInt($(this).val())) {
+						resultado = true;
+					}
+				});
+
+				return resultado;
+			},
+			incrementaCantidad: function (id, precio, unidad, iva) {
+				var cantidad = $("#cantidad_" + id).val() ? parseInt($("#cantidad_" + id).val()) : 0;
+
+				$("#cantidad_" + id).val(cantidad + unidad);
+				console.log(cantidad + unidad);
+				this.calcularImporte(id, parseFloat(precio), cantidad + unidad);
+			},
+			eliminarLineaFactura: function (id) {
+				$("#row_" + id).remove();
+				this.calcularGranTotal();
+				for (let producto in productos) {
+					if (productos[producto].id == id) {
+						productos.splice(producto, 1);
+					}
+				}
+
+
+			},
+			calcularGranTotal: function () {
+
+				var subtotal = 0;
+
+
+				$('span[id^="total_importe_"]').each(function () {
+					subtotal += parseFloat($(this).html());
+				});
+
+
+			//	$('#subtotal_factura').val(parseFloat(subtotal).toFixed(2));
+				$('#subtotal').val(parseFloat(subtotal).toFixed(2));
+
+			}
+		}
+
+
+		var importesHelper = {
+			calcularImportes: function (id, importe, interes) {
+				importe = parseFloat(importe);
+				interes = parseFloat(interes);
+
+				var total = importe + ((importe * interes) / 100);
+
+				total = parseFloat(total).toFixed(2);
+
+				$('#pagado_' + id).val(total);
+				$('#info_total_' + id).html(total);
+
+				var cuotas = parseInt($('#cuotas_' + id).val());
+
+				if (cuotas > 1) {
+					$("#pagos_" + id).html(cuotas + " pagos de " + parseFloat(total / cuotas).toFixed(2));
+				} else {
+					$("#pagos_" + id).html(cuotas + " pago de " + parseFloat(total / cuotas).toFixed(2));
+				}
+
+
+				console.log(total);
+
+				importesHelper.calcularGranTotal();
+			},
+			eliminarMedioPago: function (id) {
+				console.log(id);
+				$("#pago_" + id).remove();
+				this.calcularGranTotal();
+				for (let medio_pago in medios_pagos) {
+					if (medios_pagos[medio_pago].id == id) {
+						medios_pagos.splice(medio_pago, 1);
+					}
+				}
+
+
+			},
+			calcularGranTotal: function () {
+				var total = 0;
+
+				$('span[id^="info_total_"]').each(function () {
+					total += parseFloat($(this).html());
+				});
+
+				console.log(total);
+
+				$('#total').val(parseFloat(total).toFixed(2));
+				//$('#total_factura').val(parseFloat(total).toFixed(2));
+
+			}
+		}
+
+
+		function cargarEfectivo(value) {
+
+			let arr = value.split(",");
+
+			let id = arr[0];
+
+
+			var encontrado = false;
+
+			for (let medio_pago in medios_pagos) {
+				if (medios_pagos[medio_pago].id == id) {
+					encontrado = true;
+					break;
+				}
+			}
+
+			if (encontrado == false) {
+
+				var linea = $("#plantillaPagosCargados").html();
+
+				linea = linea.replace(/{ID}/g, id);
+				linea = linea.replace(/{MEDIOPAGO}/g, "Efectivo");
+				linea = linea.replace(/{DESCRIPCION}/g, " - ");
+				linea = linea.replace(/{INTERES}/g, parseFloat(0));
+				linea = linea.replace(/{CUOTAS}/g, 1);
+				linea = linea.replace(/{IMPORTE}/g, parseFloat(0));
+				
+				$("#info_medio_pago_"+id).val("Efectivo");
+
+
+				var medio_pago = new Medio_Pago(id);
+
+				medios_pagos.push(medio_pago);
+
+				$("#cargarMediosPagos tbody").append(linea);
+
+			}
+
+
+
+			return cambiarMedioPago("0");
+
+		}
+
+		function cargarTransferencia(value) {
+
+
+			let arr = value.split(",");
+
+			let id = arr[0];
+
+			var encontrado = false;
+
+			for (let medio_pago in medios_pagos) {
+				if (medios_pagos[medio_pago].id == id) {
+					encontrado = true;
+					break;
+				}
+			}
+
+			if (encontrado == false) {
+
+
+				var linea = $("#plantillaPagosCargados").html();
+
+				linea = linea.replace(/{ID}/g, 0);
+				linea = linea.replace(/{MEDIOPAGO}/g, "Transferencia");
+				linea = linea.replace(/{DESCRIPCION}/g, " - ");
+				linea = linea.replace(/{INTERES}/g, parseFloat(0));
+				linea = linea.replace(/{IMPORTE}/g, parseFloat(0));
+				linea = linea.replace(/{CUOTAS}/g, 1);
+
+				$("#info_medio_pago_"+id).val("Transferencia");
+
+				var medio_pago = new Medio_Pago(id);
+
+				medios_pagos.push(medio_pago);
+
+				$("#cargarMediosPagos tbody").append(linea);
+
+			}
+
+			return cambiarMedioPago("0");
+		}
+
+		function cargarCheque(value) {
+
+			let arr = value.split(",");
+
+			let id = arr[0];
+
+
+
+			var encontrado = false;
+
+			for (let medio_pago in medios_pagos) {
+				if (medios_pagos[medio_pago].id == id) {
+					encontrado = true;
+					break;
+				}
+			}
+
+			if (encontrado == false) {
+				var linea = $("#plantillaPagosCargados").html();
+
+				linea = linea.replace(/{ID}/g, id);
+				linea = linea.replace(/{MEDIOPAGO}/g, "Cheque");
+				linea = linea.replace(/{DESCRIPCION}/g, " - ");
+				linea = linea.replace(/{INTERES}/g, parseFloat(0));
+				linea = linea.replace(/{CUOTAS}/g, 1);
+				linea = linea.replace(/{IMPORTE}/g, parseFloat(0));
+
+				var medio_pago = new Medio_Pago(id);
+
+				medios_pagos.push(medio_pago);
+
+
+				$("#cargarMediosPagos tbody").append(linea);
+
+			}
+
+			return cambiarMedioPago("0");
+		}
+
+		function cargarPlanDePago(value) {
+			let arr = value.split(",");
+
+			let id = arr[0];
+			let plan = arr[1];
+			let cuotas = arr[2];
+			let interes = arr[3];
+			let tarjeta = arr[4];
+			let banco = arr[5];
+
+
+
+
+			var linea = $("#plantillaPagosCargados").html();
+
+			var encontrado = false;
+
+			for (let medio_pago in medios_pagos) {
+				if (medios_pagos[medio_pago].id == id) {
+					encontrado = true;
+					break;
+				}
+			}
+
+			if (encontrado == false) {
+				linea = linea.replace(/{ID}/g, id);
+				linea = linea.replace(/{MEDIOPAGO}/g, "T. Crédito");
+				linea = linea.replace(/{DESCRIPCION}/g, plan);
+				linea = linea.replace(/{CUOTAS}/g, cuotas);
+				linea = linea.replace(/{INTERES}/g, parseFloat(interes));
+				linea = linea.replace(/{IMPORTE}/g, parseFloat(0));
+
+				var medio_pago = new Medio_Pago(id);
+
+				medios_pagos.push(medio_pago);
+
+				$("#cargarMediosPagos tbody").append(linea);
+			}
+
+
+			console.log(arr);
+
+			return cambiarMedioPago("0");
+		}
+
+		function cargarTarjetaDebito(value) {
+			let arr = value.split(",");
+
+			let id = arr[0];
+			let tarjeta = arr[1];
+			let banco = arr[2];
+
+
+			var linea = $("#plantillaPagosCargados").html();
+
+			var encontrado = false;
+
+			for (let medio_pago in medios_pagos) {
+				if (medios_pagos[medio_pago].id == id) {
+					encontrado = true;
+					break;
+				}
+			}
+
+			if (encontrado == false) {
+
+				linea = linea.replace(/{ID}/g, id);
+				linea = linea.replace(/{MEDIOPAGO}/g, "T. Débito");
+				linea = linea.replace(/{DESCRIPCION}/g, tarjeta);
+				linea = linea.replace(/{INTERES}/g, parseFloat(0));
+				linea = linea.replace(/{CUOTAS}/g, 1);
+				linea = linea.replace(/{IMPORTE}/g, parseFloat(0));
+
+
+				var medio_pago = new Medio_Pago(id);
+
+				medios_pagos.push(medio_pago);
+
+				$("#cargarMediosPagos tbody").append(linea);
+
+			}
+
+			console.log(arr);
+
+			return cambiarMedioPago("0");
+		}
+
+		cambiarMedioPago("0");
+
+		function cambiarMedioPago(valor) {
+
+			console.log("Medio de pago ID: " + valor);
+
+			var id = parseInt(valor.charAt(0));
+
+			if (id > 0) {
+				$("#mensaje").addClass("d-none");
+
+			} else {
+				$("#mensaje").removeClass("d-none");
+				$("#mensaje").val("Debe seleccionar un medio de pago");
+				$("#t_debito").val(0);
+				$("#t_credito").val(0);
+				$("#select_medio_pago").val(0);
+			}
+
+			$("#t_credito").addClass("d-none");
+			$("#t_debito").addClass("d-none");
+			$("#efectivo").addClass("d-none");
+			$("#transferencia").addClass("d-none");
+			$("#cheque").addClass("d-none");
+
+
+			switch (id) {
+				case 1:
+					//cargarSubMenuPagos(id);
+					$("#t_debito").removeClass("d-none");
+
+					break;
+				case 2:
+					$("#t_credito").removeClass("d-none");
+
+					break;
+				case 3:
+					$("#transferencia").removeClass("d-none");
+					cargarTransferencia(valor);
+					break;
+				case 4:
+
+					$("#cheque").removeClass("d-none");
+					cargarCheque(valor);
+					break;
+				case 6:
+
+					$("#efectivo").removeClass("d-none");
+					cargarEfectivo(valor);
+					break;
+			}
+
+
+
+
+
+		}
+
+		$(document).ready(function () {
+			$(".alert").delay(4000).slideUp(200, function () {
+				$(this).alert('close');
+			});
+			$('#clientes').DataTable({
+				language: {
+					processing: "Buscando...",
+					search: "Buscar:",
+					lengthMenu: "Filtrar _MENU_ clientes",
+					info: "Listado de clientes",
+					infoEmpty: "Sin resultados",
+					infoFiltered: "",
+					infoPostFix: "",
+					loadingRecords: "",
+					zeroRecords: "Sin resultados",
+					emptyTable: "SIn resultados",
+					paginate: {
+						first: "Primero",
+						previous: "Anterior",
+						next: "Siguiente",
+						last: "Último"
+					},
+					aria: {
+						sortAscending: ": activar la columna para ordenar de forma ascendente",
+						sortDescending: ": activar la columna para ordenar de forma descendente"
+					}
+				}
+			});
+		});
+
+	</script>
+</body>
+
+</html>

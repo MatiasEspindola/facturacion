@@ -1,0 +1,607 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="">
+	<meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+	<meta name="generator" content="Hugo 0.104.2">
+	<title>RyR Computación - Comprobantes</title>
+
+	<link rel="canonical" href="https://getbootstrap.com/docs/5.2/examples/dashboard/">
+
+
+	<link rel="stylesheet" th:href="@{../css/jquery-ui.min.css}">
+
+
+
+	<link href="../assets/dist/css/bootstrap.min.css" rel="stylesheet">
+
+	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap5.min.css">
+
+	<style>
+		.ui-autocomplete {
+			max-width: 100%;
+			max-height: 200px;
+			overflow-y: auto;
+			/* prevent horizontal scrollbar */
+			overflow-x: hidden;
+			/* add padding to account for vertical scrollbar */
+			padding-right: 20px;
+		}
+
+		input {
+			text-align: center;
+		}
+
+		.bd-placeholder-img {
+			font-size: 1.125rem;
+			text-anchor: middle;
+			-webkit-user-select: none;
+			-moz-user-select: none;
+			user-select: none;
+		}
+
+		@media (min-width: 768px) {
+			.bd-placeholder-img-lg {
+				font-size: 3.5rem;
+			}
+		}
+
+		.b-example-divider {
+			height: 3rem;
+			background-color: rgba(0, 0, 0, .1);
+			border: solid rgba(0, 0, 0, .15);
+			border-width: 1px 0;
+			box-shadow: inset 0 .5em 1.5em rgba(0, 0, 0, .1), inset 0 .125em .5em rgba(0, 0, 0, .15);
+		}
+
+		.b-example-vr {
+			flex-shrink: 0;
+			width: 1.5rem;
+			height: 100vh;
+		}
+
+		.bi {
+			vertical-align: -.125em;
+			fill: currentColor;
+		}
+
+		.nav-scroller {
+			position: relative;
+			z-index: 2;
+			height: 2.75rem;
+			overflow-y: hidden;
+		}
+
+		.nav-scroller .nav {
+			display: flex;
+			flex-wrap: nowrap;
+			padding-bottom: 1rem;
+			margin-top: -1px;
+			overflow-x: auto;
+			text-align: center;
+			white-space: nowrap;
+			-webkit-overflow-scrolling: touch;
+		}
+	</style>
+
+
+	<!-- Custom styles for this template -->
+	<link th:href="@{../css/dashboard.css}" rel="stylesheet">
+</head>
+
+<body>
+
+	<header class="navbar navbar-danger sticky-top bg-danger flex-md-nowrap p-0 shadow">
+		<a class="navbar-brand col-md-3 col-lg-2 me-0 px-3 fs-6 text-white text-center" href="#">RyR Computación</a>
+
+
+		<div class="navbar-nav">
+			<div class="nav-item ">
+				<a class="nav-link px-3 text-white" href="#">Salir</a>
+			</div>
+		</div>
+	</header>
+
+	<div class="container-fluid">
+		<div class="row">
+			<nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
+				<div class="position-sticky pt-3 sidebar-sticky">
+					<div class="d-none">
+						<img th:src="@{../img/logo.png}" style="max-width: 100%;" />
+
+					</div>
+
+					<ul class="nav flex-column">
+						<li class="nav-item">
+							<a class="nav-link " aria-current="page" th:href="@{/facturacion}">
+								<span data-feather="home" class="align-text-bottom"></span>
+								Facturación
+							</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link " aria-current="page" th:href="@{/clientes}">
+								<span data-feather="home" class="align-text-bottom"></span>
+								Clientes
+							</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link " aria-current="page" th:href="@{/entidades_financieras}">
+								<span data-feather="home" class="align-text-bottom"></span>
+								Entidades Financieras
+							</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" aria-current="page" th:href="@{/planes_pagos}">
+								<span data-feather="home" class="align-text-bottom"></span>
+								Planes Pagos
+							</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" aria-current="page" th:href="@{/tarjetas}">
+								<span data-feather="home" class="align-text-bottom"></span>
+								Tarjetas
+							</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link active" aria-current="page" th:href="@{/comprobantes}">
+								<span data-feather="home" class="align-text-bottom"></span>
+								Comprobantes
+							</a>
+						</li>
+
+					</ul>
+
+					<h6
+						class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted text-uppercase">
+
+					</h6>
+
+				</div>
+			</nav>
+
+			<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+				<div
+					class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+
+					<h1 class="h4">Comprobantes</h1>
+					<div class="btn-toolbar mb-2 mb-md-0">
+						<div class="btn-group me-2">
+							<!-- Button trigger modal -->
+
+
+						</div>
+
+					</div>
+				</div>
+
+
+				<br><br>
+				<div class="row">
+
+
+					<div class="table-responsive">
+						<table class="table table-striped align-middle" id="comprobantes">
+							<thead>
+								<tr>
+									<th scope="col">Id Comprobante</th>
+									<th scope="col">Cliente</th>
+									<th scope="col">Comprobante</th>
+									<th scope="col">Fecha</th>
+									<th scope="col">Factura</th>
+									<th scope="col">Total</th>
+
+								</tr>
+							</thead>
+							<tbody>
+								<tr th:each="comprobante_factura : ${comprobantes_facturas}"
+									th:if="${!comprobante_factura.comprobante.comprobante.contains('TRANSPORTE')}">
+
+									<td class="text-center" th:text="${comprobante_factura.id_comprobante_factura}">
+									</td>
+									<td class="text-left">
+
+										<a th:text="${comprobante_factura.comprobante.cuenta_corriente == null ? 'CONSUMIDOR FINAL':comprobante_factura.comprobante.cuenta_corriente.cliente.razon_social}"
+											th:href="${comprobante_factura.comprobante.cuenta_corriente == null ? '#':'/detalles/' + comprobante_factura.comprobante.cuenta_corriente.cliente.cli_codigo  }"></a>
+									</td>
+									<td class="text-center" th:text="${comprobante_factura.comprobante.comprobante}">
+									</td>
+									<td class="text-center" th:text="${comprobante_factura.comprobante.fecha}"></td>
+									<td>
+
+										<!-- Button trigger modal -->
+										<button type="button" class="btn btn-primary text-center" data-bs-toggle="modal"
+											th:data-bs-target="'#factura'+${comprobante_factura.factura.id_factura}">
+											Detalles
+										</button>
+
+										<!-- Modal -->
+										<div class="modal fade"
+											th:id="${'factura'+comprobante_factura.factura.id_factura}" tabindex="-1"
+											aria-labelledby="exampleModalLabel" aria-hidden="true">
+											<div class="modal-dialog modal-lg">
+												<div class="modal-content">
+													<div class="modal-header">
+														<h1 class="modal-title fs-5" id="exampleModalLabel">Detalles
+															Factura
+															<span th:text="${comprobante_factura.factura.id_factura}">
+															</span>
+														</h1>
+														<button type="button" class="btn-close" data-bs-dismiss="modal"
+															aria-label="Close"></button>
+													</div>
+													<div class="modal-body">
+
+
+
+														<div class="container canvas_div_pdf" style="padding: 1em;">
+															<div class="row" style="border: 1px solid black; ">
+																<div class="col col-5">
+																	<div>
+																		<div class="text-center bg-danger"
+																			style="margin: 5px;"> <br>
+																			<img th:src="@{'../img/logo2.png'}"
+																				style="max-width: 50%;"></img>
+																			<br><br>
+																		</div>
+																	</div>
+
+
+																	<DIV STYLE="PADDING: 1PX">
+																		<b>
+																			<h5 class="text-center">RyR Computación
+																			</h5>
+																		</b>
+
+																		<b>
+																			<h6 class="text-center">Atención al
+																				Público</h6>
+																		</b>
+																		<h6 class="text-center">
+																			ventas@ryrcomputacion.com</h6>
+																		<h6 class="text-center">3624661814</h6>
+
+
+
+																	</DIV>
+
+
+
+																</div>
+																<div class="col col-2">
+																	<div class="row">
+																		<br></br>
+																		<div class="" style="background: black;">
+																			<h1 class="text-white text-center">X
+																			</h1>
+																		</div>
+																		<!--<h6 class="text-center">Cód. 01-ORIGINAL</h6>-->
+																		<br></br>
+																	</div>
+																</div>
+																<div class="col col-5">
+																	<br></br>
+																	<h5 class="text-center">Detalle Venta N° <b
+																			th:text="${comprobante_factura.factura.id_factura}"></b>
+																	</h5>
+																	<br>
+																	<h5 class="text-center">Fecha <b
+																			th:text="${#dates.format(comprobante_factura.factura.fecha, 'dd/M/yyyy')}"></b>
+																		- <b
+																			th:text="${#dates.format(comprobante_factura.factura.fecha, 'hh:mm')} + ${' hs.'}"></b>
+																	</h5>
+
+																	<DIV STYLE="PADDING: 5PX">
+																		<br>
+																		<h6 class="text-left">CUIT: XX-XXXXXXXX-XX
+																		</h6>
+																		<h6 class="text-LEFT">Ing. Brutos N°: XX
+																		</h6>
+																		<h6 class="text-LEFT">Inicio de Actividades:
+																			DD/M/YYYY
+
+																		</h6>
+																		<br>
+
+																		<h5 class="text-center"> <b>Responsable
+																				Inscripto</b>
+
+																		</h5>
+
+
+
+																	</DIV>
+																</div>
+																<div class="col-12 ">
+
+																	<ul class="list-group list-group-horizontal ">
+																		<li class="list-group-item flex-fill">
+																			<span style="font-size: 11px;"
+																				class="text-left">Resistencia
+																				(Central)</span>
+																			<br> <small class="text-left"
+																				style="font-size: 10px;">Santiago
+																				del Estero 414</small>
+
+																			<br>
+
+																			<small style="font-size: 10px;"
+																				class="text-left">Contacto:
+																				3624661814</small>
+																		</li>
+																		<li class="list-group-item flex-fill">
+																			<span style="font-size: 11px;"
+																				class="text-left">Corrientes
+																				(Capital)</span>
+																			<br> <small class="text-left"
+																				style="font-size: 10px;">Junín
+																				1648 </small>
+
+																			<br>
+
+																			<small style="font-size: 10px;"
+																				class="text-left">Contacto:
+																				3624720453</small>
+
+																		</li>
+
+
+																	</ul>
+
+
+																	<ul class="list-group list-group-horizontal">
+																		<li class="list-group-item flex-fill">
+																			<span style="font-size: 10px;"
+																				class="text-center">Formosa
+																				(Capital)</span>
+																			<br> <small class="text-left"
+																				style="font-size: 10px;">Rivadavia
+																				501</small>
+																			<br>
+
+																			<small style="font-size: 10px;"
+																				class="text-left">Contacto:
+																				3624901455</small>
+																		</li>
+																		<li class="list-group-item flex-fill">
+																			<span style="font-size: 11px;"
+																				class="text-left">Resistencia
+																				(MA)</span>
+																			<br> <small class="text-left"
+																				style="font-size: 10px;">San
+																				Buenaventura del Monte Alto 187
+																			</small>
+																			<br>
+																			<small style="font-size: 10px;"
+																				class="text-left">Contacto:
+																				3624720452</small>
+																		</li>
+																	</ul>
+																	<br>
+
+
+																</div>
+															</div>
+															<div class="row" style="border: 1px solid black; ">
+																<div class="col">
+																	<DIV STYLE="PADDING: 5PX">
+																		<br>
+
+																		<h6 class="text-left"><b>Cliente: </b><span
+																				th:text="${comprobante_factura.comprobante.cuenta_corriente == null ? 'CONSUMIDOR FINAL':comprobante_factura.comprobante.cuenta_corriente.cliente.razon_social}"></span>
+																		</h6>
+																		<h6 class="text-left"><b>Localidad:
+																			</b><span
+																				th:text="${comprobante_factura.comprobante.cuenta_corriente == null ? 'RESISTENCIA, CHACO':comprobante_factura.factura.cuenta_corriente.cliente.localidad + ', ' + comprobante_factura.factura.cuenta_corriente.cliente.provincia}"></span>
+																		</h6>
+																		<h6 class="text-left"
+																			th:if="${comprobante_factura.comprobante.cuenta_corriente != null}">
+																			<b
+																				th:text="${comprobante_factura.factura.cuenta_corriente.cliente.fkidtipodocumento.tipo_documento}">Localidad:
+																			</b> <span
+																				th:text="${comprobante_factura.factura.cuenta_corriente.cliente.nro_documento}"></span>
+																		</h6>
+																	</DIV>
+																</div>
+																<h6 class="text-center"><b></b></h6>
+															</div>
+															<div class="row" style="border: 1px solid black; ">
+																<table class="table " style="font-size: 12px;">
+																	<thead>
+																		<tr>
+																			<th class="text-center" scope="col">
+																				Cod.</th>
+																			<th class="text-center" scope="col">
+																				Producto</th>
+																			<th class="text-center" scope="col">
+																				Cantidad</th>
+																			<th class="text-center" scope="col">
+																				Iva</th>
+																				<th class="text-center" scope="col">
+																					Precio</th>
+																				
+
+																		</tr>
+																	</thead>
+																	<tbody class="text-left">
+																		<tr
+																			th:each="item, i : ${comprobante_factura.factura.items}">
+																			<td class="text-center"
+																				th:text="${item.fkprocodigo.fkidproductolista.pro_codigo}">
+																			</td>
+																			<td class="text-left"
+																				th:text="${item.fkprocodigo.fkidproductolista.descripcion}">
+																			</td>
+																			<td class="text-center"
+																				th:text="${item.cantidad}"></td>
+																			<td class="text-center"
+																				th:text="${item.tipo_iva}"></td>
+																			<td class="text-center" 
+																				th:text="${'$ '+#numbers.formatDecimal(item.fkprocodigo.importe, 0, 'POINT', 0, 'COMMA')}"></td>
+																		</tr>
+
+
+
+																	</tbody>
+
+																</table>
+																
+																<br>
+																<br>
+																
+																<h6 class="text-center"> <b> SUBTOTAL: </b> <span
+																	th:text="${'$ '+#numbers.formatDecimal(comprobante_factura.factura.subtotal, 0, 'POINT', 0, 'COMMA')}"
+																	></span>
+																</h6>
+																
+
+															</div>
+															<div class="row" style="border: 1px solid black; ">
+																<table class="table " style="font-size: 12px;">
+																	<thead>
+																		<tr>
+																			<th class="text-center" scope="col">#
+																			</th>
+
+																			<th class="text-center" scope="col">
+																				Medio de Pago</th>
+																			<th class="text-center" scope="col">
+																				Descripción</th>
+																			<th class="text-center" scope="col">
+																				Fecha</th>
+																			<th class="text-center" scope="col">
+																				Importe</th>
+
+																		</tr>
+																	</thead>
+																	<tbody class="text-center">
+																		<tr
+																			th:each="pago, i : ${comprobante_factura.factura.pagos}">
+																			<td th:text="${i.index + 1}"></td>
+																			<td
+																				th:text="${pago.medio_pago.descripcion}">
+																			</td>
+																			<td th:text="${pago.descripcion}"></td>
+																			<td
+																				th:text="${#dates.format(pago.fecha,'dd/MM/yyyy')} + ' - ' + ${#dates.format(pago.fecha, 'hh:mm') + ' hs.'}">
+																			</td>
+																			<td th:text="${'$ '+#numbers.formatDecimal(pago.total, 0, 'POINT', 0, 'COMMA')}"
+																			></td>
+
+																		</tr>
+
+																	</tbody>
+
+																</table>
+
+
+																<br></br>
+
+																<h6 class="text-center"> <b> TOTAL: </b> <span
+																		
+																		th:text="${'$ '+#numbers.formatDecimal(comprobante_factura.factura.total, 0, 'POINT', 0, 'COMMA')}"></span>
+																</h6>
+																<h6 class="text-center"
+																	th:text="${comprobante_factura.factura.descripcion_importe}">
+																</h6>
+
+
+															</div>
+														</div>
+
+
+													</div>
+													<div class="modal-footer">
+														<button type="button" class="btn btn-success">Imprimir
+															Factura</button>
+														<button type="button" class="btn btn-secondary"
+															data-bs-dismiss="modal">Cerrar</button>
+
+													</div>
+												</div>
+
+
+									</td>
+									<td 
+									th:text="${'$ '+#numbers.formatDecimal(comprobante_factura.factura.total, 0, 'POINT', 0, 'COMMA')}"></td>
+
+								</tr>
+							</tbody>
+						</table>
+					</div>
+
+					<!-- Content here -->
+				</div>
+
+
+			</main>
+		</div>
+	</div>
+
+
+
+
+	<script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
+
+	<script src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js"
+		integrity="sha384-uO3SXW5IuS1ZpFPKugNNWqTZRRglnUJK6UAZ/gxOX80nxEkN9NcGZTftn6RzhGWE"
+		crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"
+		integrity="sha384-zNy6FEbO50N+Cg5wap8IKA4M/ZnLJgzc6w2NqACZaK0u0FXfOWRRJOnQtpZun8ha"
+		crossorigin="anonymous"></script>
+
+
+
+
+	<script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+
+	<script th:src="@{/js/jquery.min.js}"></script>
+
+	<script th:src="@{/js/jquery-ui.min.js}"></script>
+
+	<script th:src="@{/js/all.min.js}"></script>
+
+	<script type="text/javascript" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+
+	<script type="text/javascript" src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap5.min.js"> </script>
+
+
+
+	<script>
+
+		$(document).ready(function () {
+			$(".alert").delay(4000).slideUp(200, function () {
+				$(this).alert('close');
+			});
+			$('#comprobantes').DataTable({
+				language: {
+					processing: "Buscando...",
+					search: "Buscar:",
+					lengthMenu: "Filtrar _MENU_ comprobantes",
+					info: "Listado de comprobantes",
+					infoEmpty: "Sin resultados",
+					infoFiltered: "",
+					infoPostFix: "",
+					loadingRecords: "",
+					zeroRecords: "Sin resultados",
+					emptyTable: "Sin resultados",
+					paginate: {
+						first: "Primero",
+						previous: "Anterior",
+						next: "Siguiente",
+						last: "Último"
+					},
+					aria: {
+						sortAscending: ": activar la columna para ordenar de forma ascendente",
+						sortDescending: ": activar la columna para ordenar de forma descendente"
+					}
+				}
+			});
+		});
+
+	</script>
+</body>
+
+</html>

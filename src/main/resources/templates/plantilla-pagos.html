@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+
+	<table th:fragment="itemsPagos" class="d-none">
+		<tbody id="plantillaPagosCargados">
+			<tr id="pago_{ID}" name="columns-pagos" class="text-center">
+				<td class="d-none">
+					<input type="number" name="medio_pago_id[]"/>
+				</td >
+				<td class="d-none">
+					<input class="form-control" readonly style="background:white; border:none;" type="number" value="{ID}" name="pago_id[]"/>
+				</td >
+				<td>
+					<input class="form-control" readonly style="background:white; border:none;" type="text" value="{MEDIOPAGO}" name="medio_pago[]"/>
+				</td>
+				<td>
+					<input class="form-control" readonly style="background:white; border:none;" type="text" value="{DESCRIPCION}" name="descripcion[]"/>
+				</td>
+				
+				<td class="d-none">
+					<input class="form-control" readonly style="background:white; border:none;" type="any"  id="cuotas_{ID}" value="{CUOTAS}" name="cuotas[]" />
+				</td>
+                <td> 
+                	<input class="form-control" readonly style="background:white; border:none;" type="any" value="{INTERES}" name="interes[]" id="interes_{ID}" />
+                	
+                </td>
+            
+				<td>
+					<input type="number" step="any"  style="background:white; border:none;" value="0" id="importe_{ID}"
+					name="subtotal[]" class="form-control" min="0"
+                    onchange="importesHelper.calcularImportes({ID},this.value, {INTERES});"/>
+                    
+				</td>
+				
+				<td ><span id="info_total_{ID}">0</span></td>
+				<br>
+				<small id="pagos_{ID}"
+                	class="text-success"></small>
+				</td>
+				
+                 <td class="d-none"> 
+                	<input class="form-control" readonly style="background:white; border:none;" type="any" name="total[]" id="pagado_{ID}"></input >
+                
+                	
+                </td>
+				<td>
+					<a href="#"
+					onclick="importesHelper.eliminarMedioPago({ID});"><i class="far fa-trash-alt text-danger text-center"></i></a>
+				</td>
+				
+			</tr>
+		</tbody>
+	</table>
+	
+
+</body>
+
+</html>
