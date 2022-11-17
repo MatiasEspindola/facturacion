@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="en">
+
+<head th:replace="layout :: head">
+</head>
+
+<body>
+
+	<header th:replace="layout :: header">
+	</header>
+
+	<div class="container-fluid">
+		<div class="row">
+			<nav th:replace="layout :: nav">
+			</nav>
+
+			<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+				<div
+					class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+
+					<h1 class="h4">Listas de Precios</h1>
+					<div class="btn-toolbar mb-2 mb-md-0">
+						<div class="btn-group me-2">
+
+							<!-- Button trigger modal -->
+							<button type="button" class="btn btn-primary" data-bs-toggle="modal"
+								data-bs-target="#exampleModal">
+								Agregar Lista de Precio
+							</button>
+
+							<!-- Modal -->
+							<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+								aria-hidden="true">
+								<div class="modal-dialog modal-lg">
+									<div class="modal-content">
+										<form th:action="@{/listas_precios}" th:object="${lista_precio}" method="post">
+											<div class="modal-header">
+												<h1 class="modal-title fs-5" id="exampleModalLabel">Lista de Precio</h1>
+												<button type="button" class="btn-close" data-bs-dismiss="modal"
+													aria-label="Close"></button>
+											</div>
+											<div class="modal-body">
+
+
+												<div class="row">
+													<div class="col">
+														<label class="form-label">Descripción:</label>
+														<input type="text" class="form-control"
+															placeholder="Descripcion" aria-label="Descripcion"
+															th:field="*{nombre}">
+													</div>
+													<div class="col">
+														<label class="form-label">Desde:</label>
+														<input type="date" class="form-control"
+															placeholder="Arancel" aria-label="Last name"
+															th:field="*{fecha_desde}">
+													</div>
+													<div class="col">
+														<label class="form-label">Hasta:</label>
+														<input type="date" class="form-control"
+															placeholder="Arancel" aria-label="Last name"
+															th:field="*{fecha_hasta}">
+													</div>
+
+												</div>
+												<br>
+												<div class="row">
+													<div class="col">
+														<label class="form-label">Porcentaje:</label>
+														<input type="number" class="form-control"
+															placeholder="Porcentaje" aria-label="Descripcion"
+															th:field="*{porcentaje}">
+													</div>
+													
+
+												</div>
+
+												
+
+
+											</div>
+											<div class="modal-footer">
+												<button type="button" class="btn btn-secondary"
+													data-bs-dismiss="modal">Cerrar</button>
+												<button type="submit" class="btn btn-primary">Guardar</button>
+											</div>
+										</form>
+									</div>
+								</div>
+							
+
+						</div>
+
+					</div>
+				</div>
+		</div>
+
+
+		<br><br>
+		<div class="row">
+
+			<div class="table-responsive">
+				<table class="table table-striped align-middle" id="listas_precios">
+					<thead>
+						<tr>
+							<th scope="col">Id Lista de Precio</th>
+							<th scope="col">Descripción</th>
+							<th scope="col">Desde</th>
+							<th scope="col">Hasta</th>
+							<th scope="col">Porcentaje</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="lista_precio : ${listas_precios}">
+
+							<td class="text-center" th:text="${lista_precio.id_lista_precio}"></td>
+							<td class="text-left" th:text="${lista_precio.nombre}"></td>
+							<td class="text-center" th:text="${lista_precio.fecha_desde}"></td>
+							<td class="text-center" th:text="${lista_precio.fecha_hasta}"></td>
+							<td class="text-center" th:text="${lista_precio.porcentaje}"></td>
+
+
+						</tr>
+					</tbody>
+				</table>
+			</div>
+
+		</div>
+
+
+		</main>
+	</div>
+	</div>
+
+
+
+	<div th:replace="layout :: script"></div>
+
+
+	<script>
+
+		$(document).ready(function () {
+			$(".alert").delay(4000).slideUp(200, function () {
+				$(this).alert('close');
+			});
+			$('#listas_precios').DataTable({
+				language: {
+					processing: "Buscando...",
+					search: "Buscar:",
+					lengthMenu: "Filtrar _MENU_ listas de precios",
+					info: "Listado de listas de precios",
+					infoEmpty: "Sin resultados",
+					infoFiltered: "",
+					infoPostFix: "",
+					loadingRecords: "",
+					zeroRecords: "Sin resultados",
+					emptyTable: "Sin resultados",
+					paginate: {
+						first: "Primero",
+						previous: "Anterior",
+						next: "Siguiente",
+						last: "Último"
+					},
+					aria: {
+						sortAscending: ": activar la columna para ordenar de forma ascendente",
+						sortDescending: ": activar la columna para ordenar de forma descendente"
+					}
+				}
+			});
+		});
+
+	</script>
+</body>
+
+</html>

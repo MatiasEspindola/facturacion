@@ -1,193 +1,17 @@
 <!doctype html>
 <html lang="en">
 
-<head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta name="description" content="">
-	<meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
-	<meta name="generator" content="Hugo 0.104.2">
-	<title>RyR Computación - Clientes</title>
-
-	<link rel="canonical" href="https://getbootstrap.com/docs/5.2/examples/dashboard/">
-
-
-	<link rel="stylesheet" th:href="@{../css/jquery-ui.min.css}">
-
-
-
-	<link href="../assets/dist/css/bootstrap.min.css" rel="stylesheet">
-
-	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap5.min.css">
-
-
-
-	<style>
-		.ui-autocomplete {
-			max-width: 100%;
-			max-height: 200px;
-			overflow-y: auto;
-			/* prevent horizontal scrollbar */
-			overflow-x: hidden;
-			/* add padding to account for vertical scrollbar */
-			padding-right: 20px;
-		}
-
-		input {
-			text-align: center;
-		}
-
-		.bd-placeholder-img {
-			font-size: 1.125rem;
-			text-anchor: middle;
-			-webkit-user-select: none;
-			-moz-user-select: none;
-			user-select: none;
-		}
-
-		@media (min-width: 768px) {
-			.bd-placeholder-img-lg {
-				font-size: 3.5rem;
-			}
-		}
-
-		.b-example-divider {
-			height: 3rem;
-			background-color: rgba(0, 0, 0, .1);
-			border: solid rgba(0, 0, 0, .15);
-			border-width: 1px 0;
-			box-shadow: inset 0 .5em 1.5em rgba(0, 0, 0, .1), inset 0 .125em .5em rgba(0, 0, 0, .15);
-		}
-
-		.b-example-vr {
-			flex-shrink: 0;
-			width: 1.5rem;
-			height: 100vh;
-		}
-
-		.bi {
-			vertical-align: -.125em;
-			fill: currentColor;
-		}
-
-		.nav-scroller {
-			position: relative;
-			z-index: 2;
-			height: 2.75rem;
-			overflow-y: hidden;
-		}
-
-		.nav-scroller .nav {
-			display: flex;
-			flex-wrap: nowrap;
-			padding-bottom: 1rem;
-			margin-top: -1px;
-			overflow-x: auto;
-			text-align: center;
-			white-space: nowrap;
-			-webkit-overflow-scrolling: touch;
-		}
-	</style>
-
-
-	<!-- Custom styles for this template -->
-	<link th:href="@{../css/dashboard.css}" rel="stylesheet">
+<head th:replace="layout :: head">
 </head>
 
 <body>
 
-	<header class="navbar navbar-danger sticky-top bg-danger flex-md-nowrap p-0 shadow">
-		<a class="navbar-brand col-md-3 col-lg-2 me-0 px-3 fs-6 text-white text-center" href="#">RyR Computación</a>
-
-
-		<div class="navbar-nav">
-			<div class="nav-item ">
-				<a class="nav-link px-3 text-white" href="#">Salir</a>
-			</div>
-		</div>
+	<header th:replace="layout :: header">
 	</header>
 
 	<div class="container-fluid">
 		<div class="row">
-			<nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
-				<div class="position-sticky pt-3 sidebar-sticky">
-					<div class="d-none">
-						<img th:src="@{../img/logo.png}" style="max-width: 100%;" />
-
-					</div>
-
-					<ul class="nav flex-column">
-						<li class="nav-item">
-							<a class="nav-link" aria-current="page" th:href="@{/facturacion}">
-								<span data-feather="home" class="align-text-bottom"></span>
-								Facturación
-							</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link active" aria-current="page" th:href="@{/clientes}">
-								<span data-feather="home" class="align-text-bottom"></span>
-								Clientes
-							</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link " aria-current="page" th:href="@{/entidades_financieras}">
-								<span data-feather="home" class="align-text-bottom"></span>
-								Entidades Financieras
-							</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link" aria-current="page" th:href="@{/planes_pagos}">
-								<span data-feather="home" class="align-text-bottom"></span>
-								Planes Pagos
-							</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link" aria-current="page" th:href="@{/tarjetas}">
-								<span data-feather="home" class="align-text-bottom"></span>
-								Tarjetas
-							</a>
-						</li>
-							<li class="nav-item">
-							<a class="nav-link " aria-current="page" th:href="@{/comprobantes}">
-								<span data-feather="home" class="align-text-bottom"></span>
-								Comprobantes
-							</a>
-						</li>
-
-
-					</ul>
-
-					<h6
-						class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted text-uppercase">
-
-					</h6>
-					<ul class="nav flex-column mb-2">
-						<li class="nav-item">
-							<a class="nav-link" href="#">
-
-
-							</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link" href="#">
-
-
-							</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link" href="#">
-
-
-							</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link" href="#">
-
-
-							</a>
-						</li>
-					</ul>
-				</div>
+			<nav th:replace="layout :: nav">
 			</nav>
 
 			<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
@@ -199,6 +23,145 @@
 					<h1 class="h4">Clientes</h1>
 					<div class="btn-toolbar mb-2 mb-md-0">
 						<div class="btn-group me-2">
+
+							<!-- Button trigger modal -->
+							<button type="button" class="btn btn-primary" data-bs-toggle="modal"
+								data-bs-target="#exampleModal">
+								Agregar Cliente
+							</button>
+
+							<!-- Modal -->
+							<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+								aria-hidden="true">
+								<div class="modal-dialog modal-lg">
+									<div class="modal-content">
+										<form th:action="@{/clientes}" th:object="${cliente}" method="post">
+											<div class="modal-header">
+												<h1 class="modal-title fs-5" id="exampleModalLabel">Cliente</h1>
+												<button type="button" class="btn-close" data-bs-dismiss="modal"
+													aria-label="Close"></button>
+											</div>
+
+											<div class="modal-body">
+											
+												<div class="row">
+													<div class="col">
+														<label class="form-label">Razón Social:</label>
+														<input type="text" class="form-control"
+															placeholder="Razón Social" aria-label="Last name"
+															th:field="*{razon_social}">
+													</div>
+													<div class="col">
+														<label class="form-label">Nro Documento:</label>
+														<input type="text" class="form-control"
+															placeholder="Nro Documento" aria-label="Last name"
+															th:field="*{nro_documento}">
+													</div>
+													<div class="col">
+														<label for="inputState" class="form-label">Tipos de
+															Documentos:</label>
+														<select id="inputState" class="form-select"
+															th:field="*{fkidtipodocumento}">
+															<option th:each="tipo_documento : ${tipos_documentos}"
+																th:text="${tipo_documento.tipo_documento}"
+																th:value="${tipo_documento.id_tipo_documento}">...
+															</option>
+														</select>
+													</div>
+												</div>
+												<br>
+												<div class="row">
+													<div class="col">
+														<label class="form-label">Dirección:</label>
+														<input type="text" class="form-control" placeholder="Dirección"
+															aria-label="Last name" th:field="*{direccion}">
+													</div>
+													<div class="col">
+														<label class="form-label">Código Postal:</label>
+														<input type="text" class="form-control"
+															placeholder="Código Postal" aria-label="Last name"
+															th:field="*{cpostal}">
+													</div>
+												</div>
+												<br>
+												<div class="row">
+													<div class="col">
+														<label class="form-label">Localidad:</label>
+														<input type="text" class="form-control" placeholder="Localidad"
+															aria-label="Last name" th:field="*{localidad}">
+													</div>
+													<div class="col">
+														<label class="form-label">Provincia:</label>
+														<input type="text" class="form-control" placeholder="Provincia"
+															aria-label="Last name" th:field="*{provincia}">
+													</div>
+												</div>
+												<br>
+												<div class="row">
+													<div class="col">
+														<label class="form-label">Teléfono 1:</label>
+														<input type="text" class="form-control" placeholder="Teléfono 1"
+															aria-label="Last name" th:field="*{telefono_1}">
+													</div>
+													<div class="col">
+														<label class="form-label">Teléfono 2:</label>
+														<input type="text" class="form-control" placeholder="Teléfono 2"
+															aria-label="Last name" th:field="*{telefono_2}">
+													</div>
+													<div class="col">
+														<label class="form-label">Email:</label>
+														<input type="text" class="form-control" placeholder="Email"
+															aria-label="Last name" th:field="*{email}">
+													</div>
+												</div>
+												<br>
+												<div class="row">
+													<div class="col">
+														<label for="inputState" class="form-label">Tipos
+															Clientes:</label>
+														<select id="inputState" class="form-select"
+															th:field="*{fkidtipocliente}">
+															<option th:each="tipo_cliente : ${tipos_clientes}"
+																th:text="${tipo_cliente.tipo_cliente}"
+																th:value="${tipo_cliente.id_tipo_cliente}">...</option>
+														</select>
+													</div>
+
+													<div class="col">
+														<label for="inputState" class="form-label">Tipos Ivas:</label>
+														<select id="inputState" class="form-select"
+															th:field="*{fkivacodigo}">
+															<option th:each="tipo_iva : ${tipos_iva}"
+																th:text="${tipo_iva.descripcion}"
+																th:value="${tipo_iva.id_tipo_iva}">...</option>
+														</select>
+													</div>
+													<div class="col">
+														<label for="inputState" class="form-label">Listas de
+															Precios:</label>
+														<select id="inputState" class="form-select"
+															th:field="*{fkidlistaprecio}">
+															<option th:each="lista_precio : ${lista_precios}"
+																th:text="${lista_precio.nombre}"
+																th:value="${lista_precio.id_lista_precio}">...</option>
+														</select>
+													</div>
+												</div>
+
+
+
+
+
+											</div>
+											<div class="modal-footer">
+												<button type="button" class="btn btn-secondary"
+													data-bs-dismiss="modal">Cerrar</button>
+												<button type="submit" class="btn btn-primary">Guardar</button>
+											</div>
+										</form>
+									</div>
+								</div>
+							</div>
 
 						</div>
 
@@ -220,17 +183,18 @@
 						<tbody>
 							<tr th:each="cliente : ${clientes}" th:if="${cliente.cli_codigo > 1}">
 								<td class="text-left">
-								
-									<a class="text-primary" th:text="${cliente.cli_codigo + ' / ' + cliente.razon_social}" 
-									th:href="@{'/detalles/' + ${cliente.cli_codigo}}"> </a>
-								
+
+									<a class="text-primary"
+										th:text="${cliente.cli_codigo + ' / ' + cliente.razon_social}"
+										th:href="@{'/detalles/' + ${cliente.cli_codigo}}"> </a>
+
 								</td>
 								<td class="text-center"
 									th:text="${cliente.fkidtipodocumento.tipo_documento + ' / ' + cliente.nro_documento}">
 									@mdo</td>
 								<td class="text-center" th:text="${cliente.fkidtipocliente.tipo_cliente}">@mdo</td>
 								<td class="text-center" th:text="${cliente.localidad}">@mdo</td>
-								<td class="text-center"> 
+								<td class="text-center">
 
 									<!-- Button trigger modal -->
 									<button type="button" class="btn btn-primary" data-bs-toggle="modal"
@@ -255,17 +219,21 @@
 													<h6>Lista de Precio: <span
 															th:text="${cliente.fkidlistaprecio.nombre}"></span></h6>
 													<br>
-													
+
 													<form th:action="@{/asignar_lista_precio}" method="post">
 														<div class="mb-3">
-															<label for="exampleInputEmail1" class="form-label">¿Quiere asignar otra lista de precio?</label>
+															<label for="exampleInputEmail1" class="form-label">¿Quiere
+																asignar otra lista de precio?</label>
 															<select class="form-select"
 																aria-label="Default select example" name="lista_precio">
-																<option th:each="lista_precio : ${lista_precios}" th:text="${lista_precio.nombre}" th:value="${lista_precio.id_lista_precio}"></option>
+																<option th:each="lista_precio : ${lista_precios}"
+																	th:text="${lista_precio.nombre}"
+																	th:value="${lista_precio.id_lista_precio}"></option>
 															</select>
 														</div>
-														
-														<input class="d-none" type="text" th:value="${cliente.cli_codigo}" name="cli_codigo"></input>
+
+														<input class="d-none" type="text"
+															th:value="${cliente.cli_codigo}" name="cli_codigo"></input>
 														<button type="submit" class="btn btn-primary">Modificar</button>
 													</form>
 												</div>
@@ -293,29 +261,7 @@
 	</div>
 
 
-	<script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
-
-
-
-	<script src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js"
-		integrity="sha384-uO3SXW5IuS1ZpFPKugNNWqTZRRglnUJK6UAZ/gxOX80nxEkN9NcGZTftn6RzhGWE"
-		crossorigin="anonymous"></script>
-	<script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"
-		integrity="sha384-zNy6FEbO50N+Cg5wap8IKA4M/ZnLJgzc6w2NqACZaK0u0FXfOWRRJOnQtpZun8ha"
-		crossorigin="anonymous"></script>
-	<script src="dashboard.js"></script>
-
-	<script th:src="@{/js/bootstrap.bundle.min.js}"></script>
-
-	<script th:src="@{/js/jquery.min.js}"></script>
-
-	<script th:src="@{/js/jquery-ui.min.js}"></script>
-
-	<script th:src="@{/js/all.min.js}"></script>
-
-	<script type="text/javascript" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
-
-	<script type="text/javascript" src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap5.min.js"> </script>
+	<div th:replace="layout :: script"></div>
 
 	<script>
 

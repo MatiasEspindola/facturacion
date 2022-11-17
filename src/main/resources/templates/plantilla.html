@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+</head>
+
+<body>
+
+	<header>
+	</header>
+
+	<div class="container-fluid">
+		<div class="row">
+			<nav>
+			</nav>
+
+			<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+				<div
+					class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+
+					<h1 class="h4"></h1>
+					<div class="btn-toolbar mb-2 mb-md-0">
+						<div class="btn-group me-2">
+							
+
+						</div>
+					</div>
+				</div>
+
+
+				<br><br>
+				<div class="row">
+
+				</div>
+
+
+			</main>
+		</div>
+	</div>
+
+
+
+	<div th:replace="layout :: script"></div>
+
+
+	<script>
+
+		$(document).ready(function () {
+			$(".alert").delay(4000).slideUp(200, function () {
+				$(this).alert('close');
+			});
+		});
+
+	</script>
+</body>
+
+</html>

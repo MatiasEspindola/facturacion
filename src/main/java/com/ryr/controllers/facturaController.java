@@ -158,7 +158,7 @@ public class facturaController {
 		
 		Tipo_Factura tipo_factura = null;
 
-		switch(cliente.getIva_codigo().getIva_codigo()) {
+		switch((int) cliente.getFkivacodigo().getId_tipo_iva()) {
 			case 1:
 				tipo_factura = tipoFacturaService.buscarPorId(1);
 				

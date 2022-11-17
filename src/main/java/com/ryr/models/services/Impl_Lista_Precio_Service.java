@@ -28,4 +28,10 @@ public class Impl_Lista_Precio_Service implements I_Lista_Precio_Service {
 		return lista_precio_Repo.findById(id).orElse(null);
 	}
 
+	@Override
+	public void guardar(Lista_Precio lista_precio) {
+		// TODO Auto-generated method stub
+		lista_precio_Repo.save(lista_precio);
+	}
+
 }

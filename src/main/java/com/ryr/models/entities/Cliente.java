@@ -29,7 +29,7 @@ public class Cliente {
 	@Id
 	private int cli_codigo;
 
-	private String cod_postal;
+	private String cpostal;
 
 	private String email;
 
@@ -65,7 +65,7 @@ public class Cliente {
 	@JoinColumn(name = "iva_codigo", referencedColumnName = "iva_codigo")
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JsonBackReference
-	private Tipo_Iva iva_codigo;
+	private Tipo_Iva fkivacodigo;
 	
 	@LazyCollection(LazyCollectionOption.FALSE)
 	@OneToMany(cascade = CascadeType.REMOVE, orphanRemoval = true)
@@ -145,22 +145,26 @@ public class Cliente {
 		this.cli_codigo = cli_codigo;
 	}
 
-	public String getCod_postal() {
-		return cod_postal;
+	
+
+	
+
+	public String getCpostal() {
+		return cpostal;
 	}
 
-	public void setCod_postal(String cod_postal) {
-		this.cod_postal = cod_postal;
+	public void setCpostal(String cpostal) {
+		this.cpostal = cpostal;
 	}
 
 	
 
-	public Tipo_Iva getIva_codigo() {
-		return iva_codigo;
+	public Tipo_Iva getFkivacodigo() {
+		return fkivacodigo;
 	}
 
-	public void setIva_codigo(Tipo_Iva iva_codigo) {
-		this.iva_codigo = iva_codigo;
+	public void setFkivacodigo(Tipo_Iva fkivacodigo) {
+		this.fkivacodigo = fkivacodigo;
 	}
 
 	public Lista_Precio getFkidlistaprecio() {

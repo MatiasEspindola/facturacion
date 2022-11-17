@@ -11,4 +11,6 @@ public interface I_Lista_Precio_Service {
 	
 	public Lista_Precio buscarPorId(long id);
 	
+	public void guardar(Lista_Precio lista_precio);
+	
 }
